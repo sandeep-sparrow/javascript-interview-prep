@@ -1,4 +1,4 @@
-class PriorityQueue{
+class MinPriorityQueue{
     constructor(){
         this.values = [];
     }
@@ -17,7 +17,7 @@ class PriorityQueue{
         while(idx > 0){
             let parentIdx = Math.floor((idx - 1)/2);
             let parent = this.values[parentIdx];
-            if(element.priority <= parent.priority) break;
+            if(element.priority >= parent.priority) break;
             // if greater then swap the parent and new element
             this.values[parentIdx] = element;
             this.values[idx] = parent;
@@ -27,7 +27,7 @@ class PriorityQueue{
 
     dequeue(){
         // remove the root
-        const max = this.values[0];
+        const min = this.values[0];
         const end = this.values.pop();
         // replace with recently added element
         this.values[0] = end;
@@ -36,7 +36,7 @@ class PriorityQueue{
             // sink down - bubbling down process...
             this.sinkDown();
         }
-        return max;
+        return min;
     }
 
     sinkDown(){
@@ -53,7 +53,7 @@ class PriorityQueue{
 
             if(leftChildIdx < length){
                 leftChild = this.values[leftChildIdx];
-                if(leftChild.priority > element.priority){
+                if(leftChild.priority < element.priority){
                     swap = leftChildIdx;
                 }
             }
@@ -61,8 +61,8 @@ class PriorityQueue{
             if(rightChildIdx < length){
                 rightChild = this.values[rightChildIdx];
                 if(
-                    (swap === null && rightChild.priority > element).priority || 
-                    (swap !== null && rightChild.priority > leftChild.priority)
+                    (swap === null && rightChild.priority < element).priority || 
+                    (swap !== null && rightChild.priority < leftChild.priority)
                 ){
                     swap = rightChildIdx;
                 }
@@ -85,7 +85,7 @@ class Node{
 }
 
 // Main Execution
-let ER = new PriorityQueue(); // MAX PRIORITY QUEUE
+let ER = new MinPriorityQueue(); // MAX PRIORITY QUEUE
 ER.enqueue("common cold", 1);
 ER.enqueue("gunshot wound", 5);
 ER.enqueue("high fever", 2);
