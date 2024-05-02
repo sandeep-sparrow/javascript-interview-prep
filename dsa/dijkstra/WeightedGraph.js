@@ -1,4 +1,4 @@
-class PriorityQueue{
+class PriorityQueue{ // need to use Binary Queue
     constructor(){
         this.values= [];
     }
@@ -51,6 +51,9 @@ class WeightedGraph{
             }
             previous[vertex] = null;
         }
+        console.log(distances);
+        console.log(previous);
+        console.log(nodes);
 
         // as long as there is something to visit
         while(nodes.values.length){
@@ -105,5 +108,7 @@ graph.addEdge("C", "F", 4);
 graph.addEdge("D", "E", 3);
 graph.addEdge("D", "F", 1);
 graph.addEdge("E", "F", 1);
+
+console.log(graph.adjacencyList);
 
 console.log(graph.Dijkstra("A", "E"));
